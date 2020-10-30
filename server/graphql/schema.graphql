@@ -1,0 +1,35 @@
+# 실습전
+# type Movie {
+#   id: Int!
+#   name: String
+#   score: Float
+# }
+# type Query {
+#   movies: [Movie]!
+#   movie(id: Int!): Movie
+# }
+# type Mutation {
+#   addMovie(name: String, score: Int): Movie
+#   deleteMovie(id: Int): Boolean!
+# }
+
+# 주석처리는 이렇게
+# 형식을 정해줄 수 있다
+# url 같은 역할
+# Mutation은 database 상태가 변할때 사용됨
+
+type Movie {
+  id: Int!
+  title: String!
+  rating: Float
+  description_intro: String
+  language: String
+  medium_cover_image: String
+  genres: [String]
+}
+
+type Query {
+  movies(limit: Int, rating: Float): [Movie]!
+  movie(id: Int!): Movie
+  suggestions(id: Int!): [Movie]!
+}
