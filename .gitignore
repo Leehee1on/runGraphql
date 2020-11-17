@@ -1,0 +1,5 @@
+mongodbTest/node_modules
+client/node_modules
+server/node_modules
+test_client/node_modules
+testServer/node_modules

@@ -15,7 +15,7 @@
 // person { age } 이런식으로
 
 // 실습
-import { getMovies, getMovie, getSuggestions } from "./db"
+import { getMovies, getMovie, getSuggestions } from "./db";
 
 const resolver = {
   Query: {
@@ -23,5 +23,5 @@ const resolver = {
     movie: (_, { id }) => getMovie(id),
     suggestions: (_, { id }) => getSuggestions(id),
   },
-}
-export default resolver
+};
+export default resolver;

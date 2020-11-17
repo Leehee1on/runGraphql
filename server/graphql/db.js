@@ -79,11 +79,11 @@
 //     .then((json) => json.data.movies)
 // }
 
-import axios from "axios"
-const BASIC_URL = "https://yts.mx/api/v2/"
-const LIST_MOVIES_URL = `${BASIC_URL}list_movies.json`
-const MOVIE_DETAILS_URL = `${BASIC_URL}movie_details.json`
-const MOVIE_SUGGESTIONS_URL = `${BASIC_URL}movie_suggestions.json`
+import axios from "axios";
+const BASIC_URL = "https://yts.mx/api/v2/";
+const LIST_MOVIES_URL = `${BASIC_URL}list_movies.json`;
+const MOVIE_DETAILS_URL = `${BASIC_URL}movie_details.json`;
+const MOVIE_SUGGESTIONS_URL = `${BASIC_URL}movie_suggestions.json`;
 
 export const getMovies = async (limit, rating) => {
   const {
@@ -95,9 +95,9 @@ export const getMovies = async (limit, rating) => {
       limit,
       minimum_rating: rating,
     },
-  })
-  return movies
-}
+  });
+  return movies;
+};
 export const getMovie = async (id) => {
   const {
     data: {
@@ -107,9 +107,9 @@ export const getMovie = async (id) => {
     params: {
       movie_id: id,
     },
-  })
-  return movie
-}
+  });
+  return movie;
+};
 export const getSuggestions = async (id) => {
   const {
     data: {
@@ -119,6 +119,6 @@ export const getSuggestions = async (id) => {
     params: {
       movie_id: id,
     },
-  })
-  return movies
-}
+  });
+  return movies;
+};
