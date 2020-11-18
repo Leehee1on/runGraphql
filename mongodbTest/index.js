@@ -2,6 +2,9 @@ import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import schema from "./schema";
+import { resolvers } from "./resolvers";
+import { ApolloServer, gql } from "apollo-server-express";
+import cors from "cors";
 // import { MongoClient } from "mongodb";
 
 // const dbName = "test";
@@ -11,29 +14,37 @@ const uri = `mongodb+srv://test-user-0:${password}@clusters.e1lkc.mongodb.net/${
 mongoose.Promise = global.Promise;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// client.connect((err) => {
-//   const collection = client.db("test").collection("devices"); // 컬렉션 객체에 대한 작업 수행
-//   const db = client.db(dbName);
-//   client.close();
-// });
 const app = express();
-const port = 3000;
+const port = 4000;
 
-app.get("/", (req, res) => {
-  res.json({
-    msg: "안녕",
-  });
-});
-app.use(
-  `/graphql`,
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true,
-  })
-);
+// apollo Server 전
+var corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+// app.get("/", cors(corsOptions), (req, res) => {
+//   res.json({
+//     msg: "안녕",
+//   });
+// });
+// app.use(
+//   `/graphql`,
+//   graphqlHTTP({
+//     schema: schema,
+//     graphiql: true,
+//   })
+// );
+// app.listen(port, () => {
+//   console.log(`서버 실행!! 포트는? ${port}`);
+// });
 
-app.listen(port, () => {
-  console.log(`서버 실행!! 포트는? ${port}`);
+const server = new ApolloServer({ schema, resolvers, cors: corsOptions });
+// apollo server 후
+server.applyMiddleware({
+  app,
+  cors: false,
+  // cors: {
+  //   origin: "http://localhost:3000",
+  // },
 });
+app.listen({ port: port }, () => console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`));

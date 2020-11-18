@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import User from './components/User';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./apollo";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    {/* <App /> */}
+    <User />
   </ApolloProvider>,
   document.getElementById('root')
 );
