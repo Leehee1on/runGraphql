@@ -5,7 +5,6 @@ import { useQuery,useMutation } from "@apollo/react-hooks"
 const GET_USER = gql`
 {
   allUser {
-    id
     name
     gender
     age
@@ -15,6 +14,7 @@ const GET_USER = gql`
 
 export default function User() {
   const { loading,data } = useQuery(GET_USER)
+  console.log('data')
   console.log(data)
 
   return (

@@ -18,10 +18,7 @@ const app = express();
 const port = 4000;
 
 // apollo Server 전
-var corsOptions = {
-  origin: "http://localhost:3000",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+
 // app.get("/", cors(corsOptions), (req, res) => {
 //   res.json({
 //     msg: "안녕",
@@ -38,13 +35,9 @@ var corsOptions = {
 //   console.log(`서버 실행!! 포트는? ${port}`);
 // });
 
-const server = new ApolloServer({ schema, resolvers, cors: corsOptions });
 // apollo server 후
+const server = new ApolloServer({ schema, resolvers });
 server.applyMiddleware({
   app,
-  cors: false,
-  // cors: {
-  //   origin: "http://localhost:3000",
-  // },
 });
 app.listen({ port: port }, () => console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`));
