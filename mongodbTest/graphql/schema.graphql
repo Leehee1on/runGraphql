@@ -18,14 +18,14 @@ type TodoInput {
   title: String!
 }
 
-type UserInput {
+input UserInput {
   name: String!
   age: Int!
   gender: String!
 }
 
-# type Mutation {
-# createUser(input: UserInput): User
-# updateUser(_id: ID!, input: UserInput): User
-# deleteUser(_id: ID!): User
-# }
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}

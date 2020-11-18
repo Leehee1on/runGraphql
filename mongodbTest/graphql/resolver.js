@@ -10,8 +10,19 @@ const resolver = {
     allUser: (_, {}) => {
       return User.find();
     },
-    getUser: (_, { name }) => {
-      return User.findById(name);
+    getUser: (_, { _id }) => {
+      return User.findById(_id);
+    },
+  },
+  Mutation: {
+    async createUser(root, { input }) {
+      return await User.create(input);
+    },
+    async updateUser(root, { _id, input }) {
+      return await User.findOneAndUpdate({ _id }, input, { new: true });
+    },
+    async deleteUser(root, { _id, input }) {
+      return await User.findOneAndDelete({ _id });
     },
   },
 };
