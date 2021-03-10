@@ -4,12 +4,13 @@ import mongoose from "mongoose";
 import schema from "./schema";
 import { resolvers } from "./resolvers";
 import { ApolloServer, gql } from "apollo-server-express";
-import cors from "cors";
 // import { MongoClient } from "mongodb";
 
 // const dbName = "test";
 const dbName = "testSchema";
+// const password = process.env.MONGODB_PASSWORD;
 const password = "Rhksflwk";
+
 const uri = `mongodb+srv://test-user-0:${password}@clusters.e1lkc.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 mongoose.Promise = global.Promise;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });

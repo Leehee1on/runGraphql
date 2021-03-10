@@ -37,14 +37,14 @@ const client:any = new ApolloClient({
     },
     Mutation: {
       // 내부에서 쓸 함수
-      // createUser: (_, { name,age,gender }, { cache }) => {
-      //   cache.writeData({
-      //     id: `ToDo:${id}`,
-      //     data: {
-      //       test: !test,
-      //     },
-      //   })
-      // },
+      createUser: (_, { name,age,gender }) => {
+        // cache.writeData({
+        //   id: `ToDo:${id}`,
+        //   data: {
+        //     test: !test,
+        //   },
+        // })
+      },
       
     },
   },

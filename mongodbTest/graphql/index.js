@@ -2,9 +2,11 @@ import express from "express";
 import mongoose from "mongoose";
 import resolver from "./resolver";
 import { GraphQLServer } from "graphql-yoga";
+import dotenv from "dotenv";
 
 // const dbName = "test";
 const dbName = "testSchema";
+// const password = process.env.MONGODB_PASSWORD;
 const password = "Rhksflwk";
 const uri = `mongodb+srv://test-user-0:${password}@clusters.e1lkc.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 mongoose.Promise = global.Promise;

@@ -1,0 +1,4 @@
+// babel setting
+{
+  "presets": ["env", "stage-3"]
+}

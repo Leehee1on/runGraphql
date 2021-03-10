@@ -13,7 +13,14 @@ const resolver = {
     getUser: (_, { _id }) => {
       return User.findById(_id);
     },
+    findUser: (_, args) => {
+      return User.find(args);
+    },
+    test: () => {
+      return User.find();
+    },
   },
+
   Mutation: {
     async createUser(root, { input }) {
       return await User.create(input);

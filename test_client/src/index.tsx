@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import User from './components/User';
+// import User from './components/User';
+import Test from './pages/Test/Test';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./apollo";
@@ -9,7 +10,7 @@ import client from "./apollo";
 ReactDOM.render(
   <ApolloProvider client={client}>
     {/* <App /> */}
-    <User />
+    <Test />
   </ApolloProvider>,
   document.getElementById('root')
 );

@@ -1,6 +1,6 @@
 type User {
   _id: ID!
-  name: String!
+  name(filter: String): String!
   age: Int!
   gender: String!
 }
@@ -12,6 +12,8 @@ type Query {
   allUser: [User]
   getUser(_id: ID!): User
   allTodo: [Todo]
+  findUser(age: Int): [User]
+  test: Int
 }
 
 type TodoInput {

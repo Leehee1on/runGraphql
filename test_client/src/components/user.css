@@ -1,0 +1,48 @@
+.user {
+  display: flex;
+  width:100%
+}
+
+.user_wrapper {
+  display: flex;
+  border: 1px solid #000;
+  align-items: center;
+  padding:10px;
+}
+
+.user_age {
+  width: 20%
+}
+.user_name {
+  width: 30%
+}
+.user_gender {
+  width: 30%
+}
+.user_detail {
+  background: blueviolet;
+  color:#fff;
+  padding:3px;
+  font-size: 15px;
+  margin: 0 5px;
+  width:50px
+}
+.user_delete {
+  background: red;
+  color:#fff;
+  padding:3px;
+  font-size: 15px;
+  margin: 0 5px;;
+  width:50px
+}
+
+.detail_wrapper {
+  padding: 20px;
+  border: 1px solid #888;
+  margin-left: 10px;
+  width: 40%;
+}
+.detail_row {
+  display: flex;
+  justify-content: space-between;
+}
