@@ -2,7 +2,7 @@ import request from './request';
 
 
 export const createTodoApi = (content:String) => {
-  return request('todo/register','post',{},{content:content});
+  return request('todo/register','post',{},{content});
 }
 
 export const getListApi = () => {
@@ -15,7 +15,7 @@ export const checkTodoApi = (id:number) => {
 }
 
 export const editTodoApi = (id:number,content:String) => {
-  return request('todo/edit/'+id,'put',{},{content:content});
+  return request('todo/edit/'+id,'put',{},{content});
 }
 
 export const deleteTodoApi = (id:any) => {

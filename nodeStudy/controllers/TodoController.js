@@ -51,11 +51,19 @@ todoController.perList = (req, res) => {
 // total page api
 todoController.totalPage = (req, res) => {
   const listLength = req.body.listLength;
-  Todo.find({}, (err, todo) => {
+  // Todo.find({}, (err, todo) => {
+  //   if (err) throw err;
+  //   return res.status(200).json({
+  //     success: true,
+  //     data: totalPage(todo.length, listLength),
+  //   });
+  // });
+  Todo.count({}, (err, todo) => {
     if (err) throw err;
+    console.log(todo);
     return res.status(200).json({
       success: true,
-      data: totalPage(todo.length, listLength),
+      data: totalPage(todo, listLength),
     });
   });
 };
@@ -82,6 +90,7 @@ todoController.check = (req, res) => {
 };
 
 todoController.edit = (req, res) => {
+  console.log(req.body);
   Todo.findOne({ id: req.params.id }, (err, todo) => {
     return Todo.findOneAndUpdate({ id: req.params.id }, { $set: { content: req.body.content } }, (err, tod) => {
       if (err) throw err;

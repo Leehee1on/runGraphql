@@ -3,9 +3,13 @@ import user from "../controllers/UserController";
 
 const router = express.Router();
 
-router.post("/register", user.register);
+router.post("/signUp", user.register);
+
+router.post("/signIn", user.signIn);
 
 router.get("/list", user.list);
+
+router.get("/auth", user.auth);
 
 router.delete("/delete/:id", user.delete);
 
