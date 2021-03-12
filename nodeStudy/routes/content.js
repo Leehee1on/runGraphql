@@ -7,12 +7,14 @@ router.post("/register", content.register);
 
 router.get("/list", content.list);
 
-router.get("/perList", content.perList);
+router.post("/perList", content.perList);
 
-router.get("/totalPage", content.totalPage);
+router.post("/totalPage", content.totalPage);
 
-// router.delete("/delete/:_id", todo.delete);
+router.get("/detail/:content_no", content.detail);
 
-// router.put("/edit/:id", todo.edit);
+router.put("/delete/:content_no", content.delete);
+
+router.put("/edit/:content_no", content.edit);
 
 module.exports = router;

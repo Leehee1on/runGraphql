@@ -28,6 +28,17 @@ const ContentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  auth_no: {
+    type: Number,
+  },
+  content_status: {
+    type: String,
+    default: "ALIVE",
+  },
+  comment_count: {
+    type: Number,
+    default: 0,
+  },
 });
 ContentSchema.plugin(autoIncrement.plugin, {
   model: "boardModel",

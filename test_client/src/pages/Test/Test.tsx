@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {checkTodoApi,createTodoApi,getListApi,deleteTodoApi,editTodoApi} from './api'
+import {checkTodoApi,createTodoApi,getListApi,deleteTodoApi,editTodoApi,serverTest} from './api'
 
 export default function Test() {
   const [list,setList] = useState<any>([]);
@@ -42,6 +42,10 @@ export default function Test() {
     }
   }
 
+  const registerArr = async () => {
+    const response = await serverTest();
+  }
+
   const onClickEditMode = (id:number,index:number) => {
     let currentObj:any = list[index];
     if(!currentObj.check) {
@@ -66,6 +70,7 @@ export default function Test() {
 
   return (
     <div>
+      <div onClick={registerArr}>aaa</div>
       <div style={{display:'flex'}}>
         <input type="text" defaultValue={value} onChange={(e)=>setValue(e.target.value)}/>
         <button onClick={createTodo}>확인</button>

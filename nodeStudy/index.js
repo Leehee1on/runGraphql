@@ -7,16 +7,15 @@ import cookieParser from "cookie-parser";
 import user from "./routes/user";
 import todo from "./routes/todo";
 import content from "./routes/content";
+import comment from "./routes/comment";
 
 const app = express();
 const port = 4000;
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 // const dbName = "testSchema";
 const dbName = "20210309";
@@ -39,6 +38,15 @@ app.use("/user", user);
 app.use("/todo", todo);
 
 app.use("/content", content);
+
+app.use("/comment", comment);
+
+app.post("/arrTest", (req, res) => {
+  console.log(req.body);
+  res.json({
+    msg: req.body,
+  });
+});
 
 app.listen(port, () => {
   console.log(`서버 실행!! 포트는? ${port}`);

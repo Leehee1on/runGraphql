@@ -66,6 +66,25 @@ userController.auth = (req, res) => {
     });
 };
 
+userController.refresh = (req, res) => {
+  // let token = req.cookies.x_auth;
+  let token = req.headers.authorization;
+  User.findByToken(token)
+    .then((user) => {
+      if (!user) return res.json({ isAuth: false, success: false });
+      user.generateToken().then((user) => {
+        return res.cookie("x_auth", user.token).status(200).json({
+          success: true,
+          userId: user._id,
+          token: user.token,
+        });
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 userController.list = (req, res) => {
   User.find({}, (err, usr) => {
     if (err) throw err;

@@ -26,6 +26,13 @@ const CommentSchema = new Schema({
   registered: {
     type: String,
   },
+  auth_no: {
+    type: Number,
+  },
+  comment_status: {
+    type: String,
+    default: "ALIVE",
+  },
 });
 CommentSchema.plugin(autoIncrement.plugin, {
   model: "boardModel",

@@ -7,6 +7,8 @@ router.post("/signUp", user.register);
 
 router.post("/signIn", user.signIn);
 
+router.post("/refresh", user.refresh);
+
 router.get("/list", user.list);
 
 router.get("/auth", user.auth);

@@ -22,6 +22,12 @@ export const deleteTodoApi = (id:any) => {
   return request('todo/delete/'+id,'delete',{},null);
 }
 
-// export const serverTest = () => {
-//   return request('test/select','get',{},null)
-// }
+export const serverTest = () => {
+  return request('arrTest','post',{},{
+    a:{
+      b:'c',
+      d:1
+    },
+    list:[1,22,3]
+  })
+}

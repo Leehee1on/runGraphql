@@ -54,7 +54,7 @@ UserSchema.methods.comparePassword = function (plainPassword) {
 
 // 로그인시 토큰 생성
 UserSchema.methods.generateToken = function () {
-  const token = jwt.sign({ _id: this._id.toHexString() }, "secretToken", { expiresIn: "1m" });
+  const token = jwt.sign({ _id: this._id.toHexString() }, "secretToken", { expiresIn: "1h" });
   this.token = token;
   return this.save()
     .then((user) => user)
