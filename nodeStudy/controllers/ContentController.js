@@ -1,12 +1,13 @@
 import Content from "../models/Content";
 import Comment from "../models/Comment";
 import User from "../models/User";
-import { totalPage, slideArr, getCurrentDate } from "../utils/utilsFunction";
+import { totalPage, slideArr } from "../utils/utilsFunction";
 
 let contentController = {};
 
 contentController.register = (req, res) => {
-  let token = req.cookies.x_auth;
+  // let token = req.cookies.x_auth;
+  let token = req.headers.authorization;
   // 토큰 검사
   User.findByToken(token)
     .then((user) => {
@@ -17,7 +18,6 @@ contentController.register = (req, res) => {
         const content = new Content({
           ...req.body,
           name: user.name,
-          registered: getCurrentDate(),
           auth_no: user.auth_no,
         });
         content.save((err) => {
@@ -25,7 +25,7 @@ contentController.register = (req, res) => {
           return res.status(200).json({
             success: true,
             message: null,
-            data: null,
+            data: null
           });
         });
       });
@@ -57,18 +57,23 @@ contentController.perList = (req, res) => {
   const listLength = Number(req.body.listLength || 10);
   const index = Number(req.body.index);
   const search = new RegExp(req.body.content.toLowerCase());
-  Content.find({  }, {}, { limit: listLength, skip: (index - 1) * listLength }, (err, content) => {
-    if (err) throw err;
-    return res.status(200).json({
-      success: true,
-      data: content,
-    });
-  });
+  Content.find(
+    { content_status: "ALIVE" },
+    {},
+    { limit: listLength, skip: (index - 1) * listLength },
+    (err, content) => {
+      if (err) throw err;
+      return res.status(200).json({
+        success: true,
+        data: content,
+      });
+    }
+  ).sort({ content_no: -1 });
 };
 // total page api
 contentController.totalPage = (req, res) => {
   const listLength = req.body.listLength;
-  Content.count({}, (err, content) => {
+  Content.count({ content_status: "ALIVE" }, (err, content) => {
     if (err) throw err;
     return res.status(200).json({
       success: true,
@@ -78,28 +83,41 @@ contentController.totalPage = (req, res) => {
 };
 
 contentController.detail = (req, res) => {
-  Content.findOne({ content_no: req.params.content_no }, (err, content) => {
-    if (err) throw err;
-    // 댓글을 같이 줘야할 때
-    // Comment.find({ content_no: req.params.content_no }, (err, comment) => {
-    //   if (err) throw err;
-    //   return res.status(200).json({
-    //     success: true,
-    //     data: {
-    //       content: content,
-    //       comment_list: comment,
-    //     },
-    //   });
-    // });
-    return res.status(200).json({
-      success: true,
-      data: content,
+  let token = req.headers.authorization;
+  User.findByToken(token).then((user) => {
+    // if (!user) return res.json({ isAuth: false, success: false });
+    Content.findOne({ content_no: req.params.content_no }, (err, content) => {
+      if (err) throw err;
+      // 댓글을 같이 줘야할 때
+      // Comment.find({ content_no: req.params.content_no }, (err, comment) => {
+      //   if (err) throw err;
+      //   return res.status(200).json({
+      //     success: true,
+      //     data: {
+      //       content: content,
+      //       comment_list: comment,
+      //     },
+      //   });
+      // });
+      if (user !== null && user.auth_no === content.auth_no) {
+        return res.status(200).json({
+          success: true,
+          data: content,
+          edit: true,
+        });
+      } else {
+        return res.status(200).json({
+          success: true,
+          data: content,
+        });
+      }
     });
   });
 };
 
 contentController.edit = (req, res) => {
-  let token = req.cookies.x_auth;
+  let token = req.headers.authorization;
+  // let token = req.cookies.x_auth;
   // 토큰 검사
   User.findByToken(token).then((user) => {
     if (!user) return res.json({ isAuth: false, success: false });
@@ -115,7 +133,7 @@ contentController.edit = (req, res) => {
         return res.json({ isAuth: false, success: false, message: "SignTokenInvalid" });
       //
       Content.findOneAndUpdate(
-        { content_no: req.params.id },
+        { content_no: req.params.content_no },
         { $set: { content: req.body.content, title: req.body.title } },
         (err, content) => {
           if (err) throw err;
@@ -130,7 +148,7 @@ contentController.edit = (req, res) => {
 };
 
 contentController.delete = (req, res) => {
-  let token = req.cookies.x_auth;
+  let token = req.headers.authorization;
   User.findByToken(token).then((user) => {
     if (!user) return res.json({ isAuth: false, success: false });
     //

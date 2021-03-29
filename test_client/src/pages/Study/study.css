@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main_table {
+  outline: auto;
+  width:1000px;
+  margin:5%
+}
+.main_table tr td {
+}
+
+.main_table tr td:nth-child(1) {width:10%}
+.main_table tr td:nth-child(2) {width:30%}
+.main_table tr td:nth-child(3) {width:20%}
+.main_table tr td:nth-child(4) {width:30%}
+.main_table tr td:nth-child(5) {width:10%}
+
+.comment_table {
+  outline: auto;
+  width:700px;
+
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign_in {
+  padding: 0 40%;
+}
+.sign_up {
+  padding: 0 40%;
+}
+.create {
+  padding: 0 40%;
+}
+
+.page {
+  padding:5px
+}
+.now_page {
+  color:grey
+}
+

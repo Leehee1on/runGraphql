@@ -59,6 +59,12 @@ const GET_MOVIE = gql`
     }
   }
 `
+
+const obj ={
+  a:1,
+  b:2,
+}
+
 export default () => {
   let { id } = useParams()
   id = Number(id)

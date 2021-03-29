@@ -1,12 +1,12 @@
 import Comment from "../models/Comment";
 import Content from "../models/Content";
 import User from "../models/User";
-import { totalPage, slideArr, getCurrentDate } from "../utils/utilsFunction";
+import { totalPage, slideArr } from "../utils/utilsFunction";
 
 let commentController = {};
-
 commentController.register = (req, res) => {
-  let token = req.cookies.x_auth;
+  let token = req.headers.authorization;
+  // let token = req.cookies.x_auth;
   // 토큰 검사
   User.findByToken(token)
     .then((user) => {
@@ -17,7 +17,6 @@ commentController.register = (req, res) => {
         const comment = new Comment({
           ...req.body,
           name: user.name,
-          registered: getCurrentDate(),
           auth_no: user.auth_no,
         });
         comment.save((err) => {
@@ -64,24 +63,24 @@ commentController.list = (req, res) => {
 commentController.perList = (req, res) => {
   const listLength = Number(req.body.listLength);
   const index = Number(req.body.index);
-  const search = new RegExp(req.body.comment.toLowerCase() );
+  // const search = new RegExp(req.body.comment.toLowerCase() );
   Comment.find(
-    { comment: search, content_no: req.body.content_no },
+    { content_no: req.body.content_no, comment_status: "ALIVE" },
     {},
     { limit: listLength, skip: (index - 1) * listLength },
-    (err) => {
+    (err, comment) => {
       if (err) throw err;
       return res.status(200).json({
         success: true,
         data: comment,
       });
     }
-  );
+  ).sort({ comment_no: -1 });
 };
 // total page api
 commentController.totalPage = (req, res) => {
   const listLength = req.body.listLength;
-  Comment.count({ content_no: req.body.content_no }, (err) => {
+  Comment.count({ content_no: req.body.content_no }, (err, comment) => {
     if (err) throw err;
     return res.status(200).json({
       success: true,

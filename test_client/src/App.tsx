@@ -2,7 +2,10 @@ import React,{useEffect} from 'react';
 import { Redirect, Switch, useLocation, Route } from "react-router-dom";
 import SignIn from './pages/Study/SignIn'
 import SignUp from './pages/Study/SignUp'
+import Header from './pages/Study/Header'
 import Main from './pages/Study/Main'
+import Create from './pages/Study/Create'
+import Detail from './pages/Study/Detail'
 import * as Cookies from 'js-cookie'
 
 import {tokenStateApi} from './pages/Study/api'
@@ -18,12 +21,13 @@ const App:React.FC = () => {
     if (token === undefined) {
     }
     const response = await tokenStateApi(token);
-    if (response.status === "success") {
+    if (response.success === true) {
         setState(true);
-    } else if (response.message === "SignTokenInvalid") {
+        Cookies.set("x_auth",response.token);
+      } else {
       // alert("토큰이 만료되어 로그아웃 됩니다");
       setState(false)
-      Cookies.remove("x_auth");
+      // Cookies.remove("x_auth");
     }
   };
   
@@ -33,15 +37,18 @@ const App:React.FC = () => {
   }, [location]);
   return (
     <div className="App" >
-      <Switch>
+      <Header state={state} Cookies={Cookies}/>
         <div id="wrap">
-          <Redirect path="*" to="/main" />
+          {/* <Redirect path="*" to="/main" /> */}
           
+        <Switch>
           <Route exact path="/signIn" component={SignIn} />
-          <Route exact path="/signUp" component={SignIn} />
+          <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/main" component={Main} />
+          <Route exact path="/create" component={Create} />
+          <Route exact path="/detail/:content_no" component={Detail} />
+        </Switch>
         </div>
-      </Switch>
     </div>
   );
 }

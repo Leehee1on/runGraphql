@@ -9,15 +9,11 @@ import { BrowserRouter } from "react-router-dom";
 
 import client from "./apollo";
 import App from './App';
-
+{/* <ApolloProvider client={client}> </ApolloProvider> */}
 ReactDOM.render(
-  <ApolloProvider client={client}>
     <BrowserRouter>
       <App />
-    </BrowserRouter>
-  </ApolloProvider>,
-  document.getElementById('root')
-);
+    </BrowserRouter>,document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

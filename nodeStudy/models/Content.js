@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
+import { dateMoment } from "../utils/utilsFunction";
 
 const Schema = mongoose.Schema;
 
@@ -25,8 +26,8 @@ const ContentSchema = new Schema({
     required: true,
   },
   registered: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: dateMoment,
   },
   auth_no: {
     type: Number,

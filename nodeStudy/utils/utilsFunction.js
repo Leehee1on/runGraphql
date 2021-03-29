@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import moment from "moment";
 
 export const totalPage = (arrLength, listLength) => {
   if (listLength === null || listLength === undefined) return null;
@@ -36,3 +37,5 @@ export const getCurrentDate = () => {
   let milliseconds = date.getMilliseconds();
   return new Date(Date.UTC(year, month, today, hours, minutes, seconds, milliseconds));
 };
+
+export const dateMoment = moment().format("YYYY-MM-DD HH:mm:ss");
